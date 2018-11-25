@@ -1,0 +1,3 @@
+#!/bin/bash
+# optional arguemnt --logtofile
+java -jar /usr/lib/jxcoll/jxcoll.jar /etc/jxcoll/jxcoll_config.xml $1

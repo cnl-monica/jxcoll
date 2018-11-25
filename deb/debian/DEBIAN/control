@@ -1,0 +1,17 @@
+Package: jxcoll
+Version: 4.0.1
+Section: java
+Priority: extra
+Architecture: i386 
+Depends: openjdk-7-jre-headless | lksctp-tools | mongodb-org | debconf (>= 0.2.17) 
+Suggests: mybeem (>=1.1-4), webanalyzer (>=2.0.2.0)
+Installed-size: 3120
+Maintainer: Adrian Pekar <adrian.pekar@gmail.com>
+Description: Java XML Collector (JXColl)
+ Represents the 2nd layer of the MONICA architecture.
+ It was designed for IPFIX traffic gathering. These traffic can be
+ saved by JXColl into a database for further processing or can be
+ also forwarded to connected analysers for real-time processing.
+ .
+ For details about JXColl and MONICA project please visit our homepage at:
+ http://wiki.cnl.tuke.sk/Monica/WebHome

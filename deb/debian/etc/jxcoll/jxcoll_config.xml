@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<JXCollConfiguration>
+    <global>
+        <logLevel>DEBUG</logLevel> <!--Possible logging: ALL | DEBUG | INFO | WARN | TRACE | ERROR (default)| FATAL | OFF-->
+        <ipfixFieldsXML>/etc/jxcoll/ipfixFields.xml</ipfixFieldsXML> <!-- Name and path to XML file with IPFIX Information Elements (default /etc/jxcoll/ipfixFields.xml)-->
+        <ipfixTemplateTimeout>300</ipfixTemplateTimeout> <!--IPFIX template timeout in seconds (default 5 minutes=300 seconds)-->
+        <listenPort>4739</listenPort> <!--Listen Port for incoming flows (default 4739)-->
+       <!--<listenProtocol>UDP</listenProtocol>Listen Protocol: TCP | SCTP | UDP (default)-->
+        <receiveUDP>yes</receiveUDP>
+        <receiveTCP>no</receiveTCP>
+        <receiveSCTP>no</receiveSCTP>
+        <maxConnections>10</maxConnections><!-- Only applicable for TCP and SCTP protocols (default 10) -->
+    </global>
+
+    <sync>
+        <makeSync>no</makeSync> <!--Make Synchronization: yes | no (default)-->
+        <listenSynchPort>5544</listenSynchPort> <!--Listen Port for Synchronization packets (default 5544)-->
+    </sync>
+
+    <owd>
+        <measureOwd>no</measureOwd> <!--Measure OWD: yes | no (default)-->
+        <owdStart>        
+            <owdStart_ObservationPointTemplateID>256</owdStart_ObservationPointTemplateID> <!-- Template ID of OWD Start Observation Point (default 256) -->
+            <owdStart_ObservationDomainID>0</owdStart_ObservationDomainID> <!-- Domain of Start ObservationPointID (default 0) -->
+            <owdStart_Host>127.0.0.1</owdStart_Host> <!-- host or IP address (default localhost)-->
+            <owdStart_ObservationPointID>123</owdStart_ObservationPointID> <!--OWD Start ObservationPointID (on out of range error measurement will be set to no) default 123 -->
+        </owdStart>
+
+        <owdEnd>		
+            <owdEnd_ObservationPointTemplateID>257</owdEnd_ObservationPointTemplateID>	<!-- Template ID of OWD End Observation Point (default 257) -->
+            <owdEnd_ObservationDomainID>0</owdEnd_ObservationDomainID> <!-- Domain of End ObservationPointID (default 0) -->
+            <owdEnd_Host>127.0.0.1</owdEnd_Host> <!-- host or IP address (default localhost)-->
+            <owdEnd_ObservationPointID>321</owdEnd_ObservationPointID> <!--OWD End ObservationPointID (on out of range error measurement will be set to no) default 321-->
+        </owdEnd>
+        <passiveTimeout>5000</passiveTimeout> <!-- Measure Point's passiveTimeout in milliseconds (default 5 seconds)-->
+        <activeTimeout>10000</activeTimeout> <!-- Measure Point's activeTimeout in milliseconds (default 10 seconds)-->
+    </owd>
+
+    <acp>
+        <acpTransfer>no</acpTransfer> <!--Forward data: yes (default) | no-->
+        <acpPort>2138</acpPort> <!--Listen port for ACP connections (default 2138)-->
+        <acpLogin>bm</acpLogin> <!--Login for ACP connections (default bm)-->
+        <acpPassword>bm</acpPassword> <!--Password for ACP connections (default bm)-->
+    </acp>
+
+    <database>
+        <dbExport>yes</dbExport> <!--Export data to database: yes (default) | no-->
+        <dbHost>localhost</dbHost> <!--Database host (default localhost)-->
+        <dbPort>27017</dbPort> <!--Database port (default MongoDB 27017)-->
+        <dbName>monica</dbName> <!--Database name (default monica)-->
+        <dbLogin>bm</dbLogin> <!--Database login (default bm)-->
+        <dbPassword>bm</dbPassword> <!--Database password (default bm)-->
+    </database>
+
+    <accounting>
+        <accExport>yes</accExport> <!--Export Accounting data to database: yes (default) | no-->
+        <accRecordExportInterval>20</accRecordExportInterval> <!--Postgres Accounting Record Export Interval in seconds-->
+        <collectorID>1</collectorID> <!--Postgres DB collector ID for accounting (existing collector ID in accounting application (default 1))-->
+    </accounting>
+</JXCollConfiguration>

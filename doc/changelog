@@ -1,0 +1,55 @@
+jxcoll (3.6) UNSTABLE; urgency=low
+
+  * jxcoll.conf konfiguracny subor bol nahradeny XML suborom jxcoll_config.xml (Adrian Pekar)
+  * uprava formatu logovacich vystupov (Adrian Pekar)
+  * pridany modul pre synchronizaciu casu na meracich bodoch (Adrian Pekar)
+  * pridany modul pre meranie jednosmerneho oneskorenia (Adrian Pekar)
+  * pridana moznost vytvarania TCP spojenia s meracim bodom (zatial funguje iba pre jedno spojenie, pri ukonceni spojenia sa v niektorych pripadoch jxcoll zacykli) (Adrian Pekar)
+  * pridane rozpoznanie dalsich informacnych elementov (firstPacketID, lastPacketID) (Adrian Pekar)
+
+ -- Adrian Pekar <adrian.pekar@gmail.com>  Wed, 30 March 2011 23:23:23 +0200
+
+jxcoll (3.5) STABLE; urgency=low
+
+  * Opraveny problem s padanim kolektora - odstraneny memory leak ktory vznikal pocas parsovania IPFIX paketu do jednotlivych i.e. (Adrian Pekar a Tomas Verescak)
+  * V pripade ak data posielane exporterom nemaju spravny datovy typ (poslal sa nespravny pocet bajtov), kolektor nespadne, ale informuje o vzniknutej situacii vhodnou ERROR hlaskou s popisom problemu a i.e. preskoci (Tomas Verescak)
+  * Pridana podpora 178 i.e., z toho 9 CNL i.e. Ak by kolektor prijal data z exportera s datovym typom ktory kolektor zatial nepodporuje, informuje o chybe vhodnou ERROR hlaskou s popisom problemu a i.e. preskoci. (Tomas Verescak)
+  * Implementovane korektne ukoncovanie (ciste vypnutie vlakien, spracovanie zvysnych zaznamov v PacketCache, odpojenie z databazy), JXColl sa vypina ako doteraz pomocou Ctrl+C alebo manualnym poslanim signalu SIGINT. Treba otestovat pocas prevadzky ACP prenosu! (Tomas Verescak)
+  * Pridana moznost nastavenia cesty k suboru ipfixFields.xml v konfiguracnom subore jxcoll.conf (Tomas Verescak)
+  * Pri chybe nacitania ipfixFields.xml nie su spustane ziadne vlakna, program sa rovno ukonci (Tomas Verescak)
+
+ -- Adrian Pekar <adrian.pekar@gmail.com>  Fri, 21 May 2010 19:52:20 +0200
+
+jxcoll (3.1-9) UNRELEASED; urgency=low
+
+  * jxcolld loguje do /var/log/jxcoll/log... (Adrian Pekar)
+  * Opravena chyba pri reprezentacii uint64 cisel. Predtym cisla vacsie ako 2^63-1 mali nespravnu hodnotu a zaporne znamienko - previedli sa na int64 (Adrian Pekar)
+
+ -- Adrian Pekar <adrian.pekar@gmail.com>  Tue, 23 Mar 2010 12:32:00 +0200
+
+jxcoll (3.1-8) UNRELEASED; urgency=low
+
+  * Namiesto prehladavania in-memory xml dokumentu pocas parsovania dat z exportera sa nacitaju udaje o i.e. vo forme objektov do kolekcie typu HashMap. K tymto informaciam sa pristupuje jednoducho cez cislo i.e. a tento sposob urychli spracovanie dat z exportera (Tomas Verescak)
+  * kolektor je odteraz dostupny aj vo forme DEB balika s init.d skriptami pre jxcolld (daemon beziaci na pozadi) (Adrian Pekar)
+
+ -- Adrian Pekar <adrian.pekar@gmail.com>  Sun, 06 Dec 2009 00:03:26 +0200
+
+jxcoll (3.1) UNRELEASED; urgency=low
+
+  * Zmena v podpore protokolu ACP (po pozastaveni prenosu sa udaje z aktuálneho paketu poslu az po posledny, a az potom sa prenos pozastavi. Po obnoveni prenosu sa poslu udaje z aktualneho paketu (Adrian Pekar)
+
+ -- Adrian Pekar <adrian.pekar@gmail.com>  Mon, 04 May 2009 16:31:49 +0200
+
+jxcoll (3.0) UNRELEASED; urgency=low
+
+  * informacne elementy, ktore exporter zatial nepodporuje boli docasne vybrate z ipfixFields.xml (Adrian Pekar)
+  * ACP,ACPapi - po pozastaveni prenosu sa zatial nepreposlane udaje z aktualneho paketu zrusia. Po obnove prenosu sa poslu udaje z aktualne prijateho paketu (Adrian Pekar)
+  * Kvoli nefunkcnosti Netflow exportera, export Netflow udajov do databazy a protokolom ACP neboli overene (implementovane). Z toho dovodu boli vybrate zdrojove kody pre spracovanie Netflow paketov (Adrian Pekar)
+  * Rozsirenie ipfixFields.xml o CNL informacne elementy.  Stlpce pre tieto i.e. boli zaroven vytvorene v bmtables.psql skripte. (Adrian Pekar)
+  * Oprava parsovania sablony s CNL i.e. -mi, enterprise bit, (za pomoc dakujem Lubosovi Husivargovi) (Adrian Pekar)
+  * Pridanie zopar konfiguracnych moznosti­ do kolektora a tiez do jxcoll.conf suboru (moznost -zapinania/vypynania utovania, -urcenie user_id pre spravnu funkcnost uctovacej aplikacie) (Adrian Pekar)
+  * Rekonstrukcia tabuliek pre uctovaciu aplikaciu zo starej databazy a ich pridanie do bmtables.psql (Adrian Pekar)
+  * Kolektor - neustale alokovanie pamate, odstranenie zbytocnych vytvarani­ objektov,ktore sa preukazali v pade kolektora po istom case (po cca. 3000 zaznamov do databazy).  Kolektor je schopny teraz nazbieray cca. 240 000 riadkov ale preplnenie pamate sa nadalej objavuje (Adrian Pekar)
+  * Prerobenie priameho spojenia (DC - Direct Connection) na podporou protokolu ACP. Pridanie funkcie­ pozastavenia a obnovenia prenosu protokolom ACP (Adrian Pekar)
+
+ -- Adrian Pekar <adrian.pekar@gmail.com>  Wed, 22 Apr 2009 09:11:04 +0200

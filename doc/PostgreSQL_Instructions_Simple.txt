@@ -1,0 +1,42 @@
+#!Postgresql Installation and Configuration Instructions for BasicMeter!#
+#!Copyright © 2010 Adrian Pekar!#
+	 ______________
+	|              |
+	|@ - user mode |
+	|  command     |
+	|# - comments  |
+	|______________|
+
+@root@bm:$
+  apt-get install postgresql
+@root@bm:$
+  passwd postgres
+
+@root@bm:$
+  sudo -u postgres createuser -D -A -P -S -R -l bm
+@root@bm:$
+  sudo -u postgres createdb -O bm bm
+@root@bm:$
+  psql -h 127.0.0.1 -d bm -U bm -f bmtables.psql --single-transaction
+#file bmtables.psql must be in current directory!!!
+@root@bm:$
+  psql -h 127.0.0.1 -d bm -U bm -f pg_patch.psql --single-transaction
+@root@bm:$
+  su postgres
+@postgres@bm:$
+  psql
+#in "postgres=#" mode add these lines:
+
+REVOKE CREATE ON SCHEMA public FROM PUBLIC;
+REVOKE USAGE ON SCHEMA public FROM PUBLIC;
+GRANT CREATE ON SCHEMA public TO bm;
+GRANT USAGE ON SCHEMA public TO bm;
+CREATE ROLE bm_ro PASSWORD 'bm_ro' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+GRANT USAGE ON SCHEMA public TO bm_ro;
+
+@postgres=#
+  \q
+@postgres@bm:$
+  psql -U postgres -qAt -c "select 'grant select on ' || tablename || ' to \"bm_ro\";' from pg_tables where schemaname = 'public'" bm | psql -U postgres bm
+
+#DONE! :)
