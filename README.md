@@ -4,7 +4,7 @@
 JXColl (Java XML Collector of IPFIX messages) represents the middle component of the SLAmeter network traffic measurement/monitoring tool. It represents the collector of an IPFIX-based network flow measurement platform. The collector serves one or more collecting processes. This process receives records about IP flows from one or more exporters. The architecture of JXColl is as follows:
 
 <p align="center">
-  <img src="/fig/collector.png" width="410" title="Architecture of the collector">
+  <img src="/fig/jxcoll.png" width="410" title="Architecture of the collector">
 </p>
 
 JXColl, based on the configured mode, can either store the obtained IPFIX flow records in a database or can send it directly (using the ACP protocol) for direct processing and visualisation. The data stored in the database (MongoDB) is destined for analysis of historical data. This is performed in full conformity with the [IPFIX specification](https://tools.ietf.org/html/rfc7011).
