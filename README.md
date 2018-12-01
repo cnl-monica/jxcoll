@@ -95,48 +95,10 @@ sudo apt-get install openjdk-7-jre-headless lksctp-tools
 sudo wget https://github.com/cnl-monica/jxcoll/blob/master/deb/jxcoll_4.0.1_i386.deb --no-check-certificate 
 ```
 
-##### 2. Run the DEB package using the following command: 
+##### 2. Install the DEB package using the following command: 
 ```bash
 sudo dpkg -i jxcoll_4.0.1_i386.deb 
 ```
-### Installation by compiling the source code
-
-##### 1. Download the source code:
-```bash
-wget https://github.com/cnl-monica/mybeem/archive/master.zip --no-check-certificate
-```
-##### 2. Unzip the code:
-```bash
-unzip master.zip
-```
-#### 3. 
-cd mybeem-master/src/mybeem
-
-###################################
-
-#### Vlastný preklad v iných IDE
----------
-
-Preklad programu spočíva v nakopírovaní zdrojových súborov a spustení kompilátora jazyka Java s potrebnými parametrami a parametrom classpath nastaveným na prídavné knižnice. Odporúča sa použiť váš obľúbený java IDE, kde stačí jednoducho nastaviť verziu JDK na 7.0 alebo vyššie a do cesty classpath pridať cesty ku všetkým potrebným knižniciam.
-
-
-## Preklad zdrojových kódov v prostredí NetBeans
---------
-
-   1. Používateľ si nainštaluje vývojárské prostredie NetBeans v8.0.2 a vyššie
-   1. Otvorí stiahnutý repozitár ako projekt (návod vyššie) alebo pridá v NetBeans-e repozitár pre aktuálnu verziu JXColl https://git.cnl.sk/monica/slameter_collector.git 
-   1. Pomocou tlačítka (Clean and Build) si preloží zdrojové súbory, výsledok (spustiteľný binárný súbor NetBeans uloží v priečinku dist pracovného priečinka programu)
-
-
-
-## Spustenie vývojovej verzie JXColl z príkaz. riadku
-Program spúšťame z priečinka `dist/` príkazom:
-```bash
-java -jar jxcoll.jar
-```
-
-###########################
-
 
 ### Runing the program
 
@@ -154,3 +116,21 @@ jxcoll
 ```
 More information on the options to run the program inculding the parameters is provided in the [User Documentation](JXCOLL_USER_DOC.md).
 
+### Running the .jar file without installation
+
+The program can be also run without installation. The .jar file is located in the `/dist` folder including all the libraries necessary for running the program. The entire distribution of JXColl can be downloaded using:
+
+```bash
+wget https://github.com/cnl-monica/mybeem/archive/master.zip --no-check-certificate
+```
+Unzip the package:
+
+```bash
+unzip master.zip
+```
+
+Change directory (cd) to the `\dist` folder and run the file using:
+
+```bash
+java -jar jxcoll.jar
+```
