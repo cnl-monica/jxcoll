@@ -55,6 +55,28 @@ JXColl is also capable of generating accounting-related information. These infor
       *   MongoDB
       *   Java Runtime Environment (JRE) v1.7.03
       *   lksctp-tools
+      
+Požiadavky na technické prostriedky sa líšia v závislosti od množstva súčasne bežiacich meraní pomocou priameho pripojenia a počtu aktívnych modulov programu.
+JXColl pre spoľahlivý beh vyžaduje približne 120MB voľného pamäte RAM, avšak so zapnutým modulom pre meranie jednosmerného oneskorenia táto veľkosť sa
+pohybuje okolo dvojnásobku tejto hodnoty.
+
+Nainštalovaný program zaberá približne 2.3MB na pevnom disku. Uvedená kapacita disku je potrebná, ak sú dáta pomocou JXColl exportované na lokálnu databázu.
+Je potrebné si uvedomiť, že JXColl daemon loguje do /var/log/jxcoll/ a pri nastavenej úrovni logovania ALL alebo DEBUG, môžu logovacie súbory mať značnú
+veľkosť. Pri dosiahnutí veľkosti 100MB sa obsah log súboru zálohuje a skomprimuje. Archivuje sa posledných 10 rotácií (1GB log výstupu).
+
+Monitorovanie rozsiahlejšej siete (napr. sieť poskytovateľa komunikačných služieb) si vyžaduje podstatne väčšie hardvérové nároky.
+
+
+### Vlastná inštalácia
+--------------
+
+Vlastná inštalácia pozostáva z inštalácie DEB balíka v prostredí operačného systému Ubuntu alebo Debian. V prostredí iného operačného systému inštalácia pozostáva
+z nakopírovania spustiteľného Java archívu `jxcoll.jar` do priečinka podľa vlastnej voľby. Následne treba nakopírovať súbor popisujúci podporované informačné
+elementy protokolu IPFIX programom JXColl `ipfixFields.xml` a ukážkový konfiguračný súbor `jxcoll_config.xml`, ktorý je potrebné upraviť pre vlastné prostredie meraní.
+
+
+Ak chceme program spúštat zo zdrojových súborov, je potrebná znalost nastavovania
+ciest ku triedam pre Javu, eventuálne vediet kompilovat zdrojové súbory v Jave.
 
 * **Dependencies within SLAmeter**
       *   **Exporter:** JXColl depends on [MyBeem](https://github.com/cnl-monica/mybeem), however, it should also be able to process IPFIX messages from other flow exporters (both hardware and software implementations).
