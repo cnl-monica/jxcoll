@@ -47,37 +47,18 @@ JXColl is also capable of generating accounting-related information. These infor
 
 *  **Hardware**:
       *   processor: 1GHz+ (depends on the traffic load to measure)
-      *   memory: 512MB+ (depends on the configure cache size)
-      *   size on disk: min 1 GB (depends on the volume of data to be stored in the DB as well the DB location)
+      *   memory: 512MB+ (depends on the configure cache size) - the memory requirements are based on the number of concurent monitorings through the ACP protocol (direct transfer of information to the analysing application). For standard run, JXColl requires at least 120 MB memory, however, with ACP and the modul for one-way delay measurement the recommended memory is at least 512 MB.
+      *   size on disk: min 1 GB (depends on the volume of data to be stored in the DB as well the DB location) - The installed program on disk occupies approximately 2.3 MB. The JXColl daemon logs into /var/log/jxcoll/ and based on the configured level of logging to ALL or DEBUG these log messages can have a substantial size. After the size of the log message reaches 100 MB, the contain is archived and compressed. The last 10 rotations are archived (1 GB of log output).
       *   other: network interface card (NIC)
+
+**Note that monitoring a large-scale network requires larger system requirements**
+
 
 *  **Software**:
       *   MongoDB
       *   Java Runtime Environment (JRE) v1.7.03
       *   lksctp-tools
       
-Požiadavky na technické prostriedky sa líšia v závislosti od množstva súčasne bežiacich meraní pomocou priameho pripojenia a počtu aktívnych modulov programu.
-JXColl pre spoľahlivý beh vyžaduje približne 120MB voľného pamäte RAM, avšak so zapnutým modulom pre meranie jednosmerného oneskorenia táto veľkosť sa
-pohybuje okolo dvojnásobku tejto hodnoty.
-
-Nainštalovaný program zaberá približne 2.3MB na pevnom disku. Uvedená kapacita disku je potrebná, ak sú dáta pomocou JXColl exportované na lokálnu databázu.
-Je potrebné si uvedomiť, že JXColl daemon loguje do /var/log/jxcoll/ a pri nastavenej úrovni logovania ALL alebo DEBUG, môžu logovacie súbory mať značnú
-veľkosť. Pri dosiahnutí veľkosti 100MB sa obsah log súboru zálohuje a skomprimuje. Archivuje sa posledných 10 rotácií (1GB log výstupu).
-
-Monitorovanie rozsiahlejšej siete (napr. sieť poskytovateľa komunikačných služieb) si vyžaduje podstatne väčšie hardvérové nároky.
-
-
-### Vlastná inštalácia
---------------
-
-Vlastná inštalácia pozostáva z inštalácie DEB balíka v prostredí operačného systému Ubuntu alebo Debian. V prostredí iného operačného systému inštalácia pozostáva
-z nakopírovania spustiteľného Java archívu `jxcoll.jar` do priečinka podľa vlastnej voľby. Následne treba nakopírovať súbor popisujúci podporované informačné
-elementy protokolu IPFIX programom JXColl `ipfixFields.xml` a ukážkový konfiguračný súbor `jxcoll_config.xml`, ktorý je potrebné upraviť pre vlastné prostredie meraní.
-
-
-Ak chceme program spúštat zo zdrojových súborov, je potrebná znalost nastavovania
-ciest ku triedam pre Javu, eventuálne vediet kompilovat zdrojové súbory v Jave.
-
 * **Dependencies within SLAmeter**
       *   **Exporter:** JXColl depends on [MyBeem](https://github.com/cnl-monica/mybeem), however, it should also be able to process IPFIX messages from other flow exporters (both hardware and software implementations).
 
@@ -156,8 +137,16 @@ Unzip the package:
 unzip master.zip
 ```
 
-Change directory (cd) to the `\dist` folder and run the file using:
+If you want to run the program using the .jar file, you need to know how to set the path to the libraries required by JXColl. The required libraries are provided in the `\dist` directory.
+
+Tu run the program, change directory (cd) to the `\dist` folder and run the file using:
 
 ```bash
 java -jar jxcoll.jar
 ```
+
+Before running the program, it is necessary to copy `ipfixFields.xml` (the file specifying the information elements that are supported by JXColl) and `jxcoll_config.xml` (the configuration file) to the appropriate locations.
+
+## Instructions for using the program
+
+**See the [User Documentation](JXCOLL_USER_DOC.md)**
