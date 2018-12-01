@@ -59,10 +59,10 @@ JXColl is also capable of generating accounting-related information. These infor
 * **Dependencies within SLAmeter**
       *   **Exporter:** JXColl depends on [MyBeem](https://github.com/cnl-monica/mybeem), however, it should also be able to process IPFIX messages from other flow exporters (both hardware and software implementations).
 
-## Installation on Ubuntu 14.04.2 LTS
+### Installation on Ubuntu 14.04.2 LTS
 ---------------------------
 
-### Install MongoDB 
+#### Install MongoDB 
 
 ##### 1. First, it is necessary to import the public GPG key
 ```bash
@@ -81,14 +81,14 @@ sudo apt-get update
 sudo apt-get install -y mongodb-org
 ```
 
-### Installation of other dependencies 
+#### Installation of other dependencies 
 
 The installation of Java JRE 7 and lksctp-tools can be performed executing:
 ```bash
 sudo apt-get install openjdk-7-jre-headless lksctp-tools
 ```
 
-### Installation of JXColl using the .deb installation package
+#### Installation of JXColl using the .deb installation package
 
 ##### 1. Download the DEB package
 ```bash
@@ -100,7 +100,8 @@ sudo wget https://github.com/cnl-monica/jxcoll/blob/master/deb/jxcoll_4.0.1_i386
 sudo dpkg -i jxcoll_4.0.1_i386.deb 
 ```
 
-### Runing the program
+### Runing the program using the script
+---------------------------
 
 ##### First, set the configuration file `/etc/jxcoll/jxcoll_config.xml`. Make sure you configure the protocol for incoming messages (Netflow/IPFIX) and the database to be used.
 
@@ -116,7 +117,8 @@ jxcoll
 ```
 More information on the options to run the program inculding the parameters is provided in the [User Documentation](JXCOLL_USER_DOC.md).
 
-### Running the .jar file without installation
+### Run the program using the .jar file without installation
+---------------------------
 
 The program can be also run without installation. The .jar file is located in the `/dist` folder including all the libraries necessary for running the program. The entire distribution of JXColl can be downloaded using:
 
