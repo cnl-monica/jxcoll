@@ -170,6 +170,8 @@ The log subsystem of the program can be configured at verious levels. These leve
 
 When running the program, the following error messages can raise.
 
+--------------
+
 #### **Error:**
 
 ```bash
@@ -196,6 +198,7 @@ FATAL: password authentication failed for user ”postgres” SQL error
 JXColl was unable to connect to the database.
 Check the connection string (address, port, user name and password). Also check blocking at the level of firewall/ACL.
 
+--------------
 
 #### **Error:**
 
@@ -219,6 +222,7 @@ The program cannot read the configuration file. Check whether the `/etc/jxcoll/j
 
 The `ipfixFields.xml` file was not found. Check whether the path set in the configuration file is correct or in the default directory (`/etc/jxcoll/ipfixFields.xml`).
 
+--------------
 
 #### **Error:**
 
@@ -231,6 +235,7 @@ The `ipfixFields.xml` file was not found. Check whether the path set in the conf
 
 This messages is related to the ACP protocol. JXColl will automatically recover and await connection through ACP.
 
+--------------
 
 #### **Error:**
 
@@ -242,6 +247,8 @@ This messages is related to the ACP protocol. JXColl will automatically recover 
 
 During data processing the was a connection interruption with the DB. Check network connectivity.
 
+--------------
+
 #### **Error:**
 
 ```bash
@@ -251,6 +258,8 @@ During data processing the was a connection interruption with the DB. Check netw
 #### **Description and resolution:**
 
 During data processing, an information element was found that is not supported. JXColl will skip processing this information element. If the procsseing of this information element should be supported by JXColl, check whether it is provided in the `ipfixFields.xml` file. If the element is not supported, it is necessary to implement it.
+
+--------------
 
 #### **Error:**
 
@@ -263,6 +272,7 @@ During data processing, an information element was found that is not supported. 
 
 During data processing the size of the information element is not corresponding with the size provided in the `ipfixFields.xml` file. JXColl will skip the processing of this element. The error is most probably in the exporter.
 
+--------------
 
 #### **Error:**
 
@@ -275,6 +285,7 @@ During data processing the size of the information element is not corresponding 
 
 During data processing, the data type of the information element cannot be decoded by JXColl. JXColl will skip processing this element. The implementation of decoding this data type must be performed in the JXColl.
 
+--------------
 
 ## Error messages related to the Java Virtual Machine 
 -----------------------------
