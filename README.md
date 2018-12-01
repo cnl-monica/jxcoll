@@ -29,10 +29,8 @@ JXColl is also capable of generating accounting-related information. These infor
 *   **Implementation environment**: openjdk-7-jre-headless 
 
 ## Documentation
-*   [User Documentation MD](JXCOLL_USER_DOC.md)
-*   [Technical Documentation MD](JXCOLL_SYSTEM_DOC.md)
 
-**The PDF version of the documentation is available only in Slovak language:**
+**The documentation is available only in Slovak language:**
  * [User Documentation PDF](https://github.com/cnl-monica/jxcoll/tree/master/doc/JXColl_v4.0.1_PP.pdf)
  * [Technical Documenation PDF](https://github.com/cnl-monica/jxcoll/tree/master/doc/JXColl_v4.0.1_SP.pdf)
 
@@ -196,7 +194,7 @@ man jxcoll_config
 In the case of operating systems other than Ubuntu/Debian, or if manual start of the program is required, JXColl can be run using the Java interpreter with the optional parameter consisting of the path (relative or absolute) to the configuration file:
 
 ```bash
-java -jar jxcoll.jar [/cesta/ku/konfiguracnému/súboru/jxcoll_config.xml] [--logtofile] 
+java -jar jxcoll.jar [/path/to/the/config/jxcoll_config.xml] [--logtofile] 
 ```
 If the path to the configuration file is not provided, the program will automatically assume the use of the configuration file located at:
 
