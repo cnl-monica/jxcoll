@@ -125,7 +125,7 @@ jxcoll
 The program can be also run without installation. The .jar file is located in the `/dist` folder including all the libraries necessary for running the program. The entire distribution of JXColl can be downloaded using:
 
 ```bash
-wget https://github.com/cnl-monica/mybeem/archive/master.zip --no-check-certificate
+wget https://github.com/cnl-monica/jxcoll/archive/master.zip --no-check-certificate
 ```
 
 Unzip the package:
