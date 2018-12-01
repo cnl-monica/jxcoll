@@ -108,17 +108,17 @@ As the parameters are passed to the program as plain text, the administrator mus
 
 | **Parameter** | **Default value** | **Valid values** | **Description** |
 | -------- |--------|--------|--------|
-| measureOwd | no | yes , no | príznak, či kolektor má merať jednosmerné oneskorenie |
-| owdStart_ObservationPointTemplateID | 256 | identifikátor šablóny, ktorý je v súlade s IPFIX špecifikáciou | identifikátor šablóny meracieho bodu, v ktorom sa začína meranie owd |
-| owdStart_ObservationDomainID | 0 | identifikátor domény, ktorý je v súlade s IPFIX špecifikáciou | doména, v ktorej sa merací bod nachádza |
-| owdStart_Host | 127.0.0.1 | názov alebo IP adresa v správnom formáte | názov alebo IP adresa meracieho bodu |
-| owdStart_ObservationPointID | 123 | identifikátor meracieho bodu, ktorý je v súlade s IPFIX špecifikáciou | identifikátor meracieho bodu, v ktorom sa začína meranie owd |
-| owdEnd_ObservationPointTemplateID | 257 | identifikátor šablóny, ktorý je v súlade s IPFIX špecifikáciou | identifikátor šablóny meracieho bodu, v ktorom sa končí meranie owd |
-| owdEnd_ObservationDomainID | 0 | identifikátor domény, ktorý je v súlade s IPFIX špecifikáciou | doména, v ktorej sa merací bod nachádza |
-| owdEnd_Host | 127.0.0.1 | názov alebo IP adresa v správnom formáte | názov alebo IP adresa meracieho bodu |
-| owdEnd_ObservationPointID | 321 | identifikátor meracieho bodu, ktorý je v súlade s IPFIX špecifikáciou | identifikátor meracieho bodu, v ktorom sa končí meranie owd |
-| passiveTimeout | 5000 | prirodzené celé číslo väčšie ako 0 | passiveTimeout, ktorý je nastavený aj na meracích bodoch |
-| activeTimeout | 10000 | prirodzené celé číslo väčšie ako 0 | activeTimeout, ktorý je nastavený aj na meracích bodoch |
+| measureOwd | no | yes , no | turn the measurement of OWD on/off |
+| owdStart_ObservationPointTemplateID | 256 | identifier of the template that is in conformity with IPFIX | ID of the template that is used for the start of OWD measurement |
+| owdStart_ObservationDomainID | 0 | identifier of the domain that is in conformity with IPFIX | ID of the domain where OWD measurement starts |
+| owdStart_Host | 127.0.0.1 | FQDN or IP | FQDN or IP of the observation point |
+| owdStart_ObservationPointID | 123 | identifier of the observation point that is in conformity with IPFIX | ID of the observation point that is used for the start of OWD measurement |
+| owdEnd_ObservationPointTemplateID | 257 | identifier of the template that is in conformity with IPFIX | ID of the template that is used for the end of OWD measurement |
+| owdEnd_ObservationDomainID | 0 | identifier of the domain that is in conformity with IPFIX | ID of the domain where OWD measurement ends |
+| owdEnd_Host | 127.0.0.1 | FQDN or IP | FQDN or IP of the observation point |
+| owdEnd_ObservationPointID | 321 | identifier of the observation point that is in conformity with IPFIX | ID of the observation point that is used for the end of OWD measurement |
+| passiveTimeout | 5000 | integer larger than 0 | passiveTimeout, that is set on the exporters |
+| activeTimeout | 10000 | integer larger than 0 | activeTimeout, that is set on the exporters |
 
 ### Module for sending flow data directly to the analysing application (acp)
 
@@ -133,20 +133,20 @@ As the parameters are passed to the program as plain text, the administrator mus
 
 | **Parameter** | **Default value** | **Valid values** | **Description** |
 | -------- |--------|--------|--------|
-| dbExport | yes | yes, true, no, false | príznak, či sa exportujú výsledky meraní do databázy PostgreSQL |
-| dbHost | localhost | názov alebo IP adresa databázového servera | databázový server PostgreSQL |
-| dbPort | 5432 | port služby PostgreSQL | port, na ktorom beží databáza PostgreSQL |
-| dbName | bm | reťazec udávajúci názov databázy | databáza pre ukladanie výsledkov meraní v PostgreSQL |
-| dbLogin | bm | reťazec udávajúci prihlasovacie meno | prihlasovacie meno do databázy PostgreSQL |
-| dbPassword | bm | reťazec udávajúci heslo | heslo do databázy PostgreSQL |
+| dbExport | yes | yes, true, no, false | Data export to DB is on/off |
+| dbHost | localhost | FQDN or IP of the dabase | The address of the DB server |
+| dbPort | 5432 | port on the DB listens for connections | port on which the DB server runs |
+| dbName | bm | name of the database | name of the DB where the data is going to be stored |
+| dbLogin | bm | user name | user name of the DB connection |
+| dbPassword | bm | password | password for the DB connection |
 
 ### Module used for accounting
 
 | **Parameter** | **Default value** | **Valid values** | **Description** |
 | -------- |--------|--------|--------|
-| accExport | no | yes, true, no, false | príznak, či sa exportujú výsledky meraní pre účtovanie do databázy postgresql |
-| AccRecordExportInterval | 60 | prirodzené celé císlo väčšie ako 0 | čas v sekundách, po ktorom sa záznamy pre účtovanie majú uložiť do databázy |
-| collectorID | 1 | prirodzené celé číslo väčšie ako 0 | identifikátor zhromažďovacieho procesu |
+| accExport | no | yes, true, no, false | sending accounting related information to postgresql is on/off |
+| AccRecordExportInterval | 60 | integer larger than 0 | time after the expiration of which the information are stored in the database |
+| collectorID | 1 | integer larger than 0 | ID of the collector |
 
 ## Description of messages for system programmer
 -----------------------
