@@ -211,6 +211,8 @@ Check the connection string (address, port, user name and password). Also check 
 
 The program cannot read the configuration file. Check whether the `/etc/jxcoll/jxcoll.conf` exists or the path to this file is correct.
 
+--------------
+
 #### **Error:**
 
 ```bash
