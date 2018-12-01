@@ -1,27 +1,4 @@
-Požiadavky na technické prostriedky sa líšia v závislosti od množstva súčasne bežiacich meraní pomocou priameho pripojenia a počtu aktívnych modulov programu.
-JXColl pre spoľahlivý beh vyžaduje približne 120MB voľného pamäte RAM, avšak so zapnutým modulom pre meranie jednosmerného oneskorenia táto veľkosť sa
-pohybuje okolo dvojnásobku tejto hodnoty.
-
-Nainštalovaný program zaberá približne 2.3MB na pevnom disku. Uvedená kapacita disku je potrebná, ak sú dáta pomocou JXColl exportované na lokálnu databázu.
-Je potrebné si uvedomiť, že JXColl daemon loguje do /var/log/jxcoll/ a pri nastavenej úrovni logovania ALL alebo DEBUG, môžu logovacie súbory mať značnú
-veľkosť. Pri dosiahnutí veľkosti 100MB sa obsah log súboru zálohuje a skomprimuje. Archivuje sa posledných 10 rotácií (1GB log výstupu).
-
-Monitorovanie rozsiahlejšej siete (napr. sieť poskytovateľa komunikačných služieb) si vyžaduje podstatne väčšie hardvérové nároky.
-
-
-### Vlastná inštalácia
---------------
-
-Vlastná inštalácia pozostáva z inštalácie DEB balíka v prostredí operačného systému Ubuntu alebo Debian. V prostredí iného operačného systému inštalácia pozostáva
-z nakopírovania spustiteľného Java archívu `jxcoll.jar` do priečinka podľa vlastnej voľby. Následne treba nakopírovať súbor popisujúci podporované informačné
-elementy protokolu IPFIX programom JXColl `ipfixFields.xml` a ukážkový konfiguračný súbor `jxcoll_config.xml`, ktorý je potrebné upraviť pre vlastné prostredie meraní.
-
-
-Ak chceme program spúštat zo zdrojových súborov, je potrebná znalost nastavovania
-ciest ku triedam pre Javu, eventuálne vediet kompilovat zdrojové súbory v Jave.
-
-
-### How to use the program
+## How to use the program
 --------------
 
 JXColl is a console application. When installed using the DEB package, JXColl is run automatically during system boot as a daemon. The JXColl daemon (jxcolld) can be managed using the following command:
@@ -81,7 +58,7 @@ If the configuration file is not found, the application will exit with an error 
 
 A further requirement for running JXColl is the `ipfixFields.xml` file. The path to this file can be set in the configuration `jxcoll_config` file. When at program start the `ipfixFields.xml` file is not located at the location as defined in the configuration file, the program exits with an error message. When the path to this file is not set, JXColl automatically assumes that the file is located at `/etc/jxcoll/ipfixFields.xml`. If the file cannot be located here either, JXColl stops it operation. Withouth this JXColl cannot detect the data obtained from the IPFIX messages.
 
-### Description of the dialog beteen the program and the user
+## Description of the dialog beteen the program and the user
 -----------------
 
 As JXColl is a console application, it does not provide any graphical user interface. The error messages are shown in the same console window as the program was run. Alternatively, the outputs are redirected into the log file if it was set so in the configuration file.
@@ -93,7 +70,7 @@ kill -SIGTERM pid_of_jxcoll
 ```
 When the program was installed on Ubuntu/Debian operating systems using the DEB package, JXColl can be stopped using the `init.d` script (see above). 
 
-### Description of the configuration file
+## Description of the configuration file
 ----------------------
 
 The configuration file is passed to the program as a parameter. The individual configuration parameters are grouped according to the modules they affect. These parameter with their default and valid values as well as description are provided in the tables below. 
@@ -111,7 +88,7 @@ The configuration file can also contain comments:
 ```
 As the parameters are passed to the program as plain text, the administrator must make sure the passwords are secured.
 
-#### Global parameters
+### Global parameters
 
 | **Parameter** | **Default value** | **Valid values** | **Description** |
 |--------|--------|--------|--------|
@@ -127,7 +104,7 @@ As the parameters are passed to the program as plain text, the administrator mus
 | makeSync | no | yes, no | parameter defines whether the collector acts as a snychronisation server towards the exporters (required for the OWD measurement)  |
 | listenSynchPort | 5544 | integer in the range of <0-65535>  (that is available) | port for listening for synchronisation messages |
 
-#### Module for measuring one-way delay (owd)
+### Module for measuring one-way delay (owd)
 
 | **Parameter** | **Default value** | **Valid values** | **Description** |
 | -------- |--------|--------|--------|
@@ -143,7 +120,7 @@ As the parameters are passed to the program as plain text, the administrator mus
 | passiveTimeout | 5000 | prirodzené celé číslo väčšie ako 0 | passiveTimeout, ktorý je nastavený aj na meracích bodoch |
 | activeTimeout | 10000 | prirodzené celé číslo väčšie ako 0 | activeTimeout, ktorý je nastavený aj na meracích bodoch |
 
-#### Module for sending flow data directly to the analysing application (acp)
+### Module for sending flow data directly to the analysing application (acp)
 
 | **Parameter** | **Default value** | **Valid values** | **Description** |
 | -------- |--------|--------|--------|
@@ -152,7 +129,7 @@ As the parameters are passed to the program as plain text, the administrator mus
 | acpLogin| bm | user name | user name for the connection |
 | acpPassword | bm | password | password for the connection |
 
-#### Module for storing flow data in the database
+### Module for storing flow data in the database
 
 | **Parameter** | **Default value** | **Valid values** | **Description** |
 | -------- |--------|--------|--------|
@@ -163,7 +140,7 @@ As the parameters are passed to the program as plain text, the administrator mus
 | dbLogin | bm | reťazec udávajúci prihlasovacie meno | prihlasovacie meno do databázy PostgreSQL |
 | dbPassword | bm | reťazec udávajúci heslo | heslo do databázy PostgreSQL |
 
-#### Module used for accounting
+### Module used for accounting
 
 | **Parameter** | **Default value** | **Valid values** | **Description** |
 | -------- |--------|--------|--------|
@@ -171,7 +148,7 @@ As the parameters are passed to the program as plain text, the administrator mus
 | AccRecordExportInterval | 60 | prirodzené celé císlo väčšie ako 0 | čas v sekundách, po ktorom sa záznamy pre účtovanie majú uložiť do databázy |
 | collectorID | 1 | prirodzené celé číslo väčšie ako 0 | identifikátor zhromažďovacieho procesu |
 
-### Description of messages for system programmer
+## Description of messages for system programmer
 -----------------------
 
 During program run various messages at various levels are shown on the output. These messages can vary from errors to information. 
@@ -188,12 +165,12 @@ The log subsystem of the program can be configured at verious levels. These leve
 | FATAL | messages that raise doe to the crash of the program and that require program restart |
 | OFF | turns off all log messages |
 
-### Error messages
+## Error messages
 ----------------------
 
 When running the program, the following error messages can raise.
 
-**Error:**
+#### **Error:**
 
 ```bash
 [main] DEBUG sk.tuke.cnl.bm.JXColl.export.DBExport - Connecting to postgres@jdbc:postgresql://127.0.0.3:5432/bm...
@@ -214,92 +191,92 @@ Check that the hostname and port are correct and that the postmaster is acceptin
 FATAL: password authentication failed for user ”postgres” SQL error
 ```
 
-**Description and resolution:**
+#### **Description and resolution:**
 
 JXColl was unable to connect to the database.
 Check the connection string (address, port, user name and password). Also check blocking at the level of firewall/ACL.
 
 
-**Error:**
+#### **Error:**
 
 ```bash
 [main] INFO sk.tuke.cnl.bm.JXColl.Config - Loading config file: /zla/cesta/k/jxcoll.conf
 [main] ERROR sk.tuke.cnl.bm.JXColl.Config - Could not load property file: /zla/cesta/k/jxcoll.conf !
 ```
 
-**Description and resolution:**
+#### **Description and resolution:**
 
 The program cannot read the configuration file. Check whether the `/etc/jxcoll/jxcoll.conf` exists or the path to this file is correct.
 
-**Error:**
+#### **Error:**
 
 ```bash
 [main] FATAL sk.tuke.cnl.bm.JXColl.IpfixElements - XML file ”/path/to/the/ipfixFields.xml” was not found!
 [main] FATAL sk.tuke.cnl.bm.JXColl.JXColl - JXColl could not start because of an error while processing XML file!
 ```
 
-**Description and resolution:**
+#### **Description and resolution:**
 
 The `ipfixFields.xml` file was not found. Check whether the path set in the configuration file is correct or in the default directory (`/etc/jxcoll/ipfixFields.xml`).
 
 
-**Error:**
+#### **Error:**
 
 ```bash
 [ACP Thread 4] ERROR sk.tuke.cnl.bm.JXColl.export.ACPIPFIXWorker - IO EXCEPTION :null
 [ACP Thread 4] DEBUG sk.tuke.cnl.bm.JXColl.export.ACPIPFIXWorker - Closing connection in try-catch
 ```
 
-**Description and resolution:**
+#### **Description and resolution:**
 
 This messages is related to the ACP protocol. JXColl will automatically recover and await connection through ACP.
 
 
-**Error:**
+#### **Error:**
 
 ```bash
 [[Net Parser] ERROR sk.tuke.cnl.bm.JXColl.export.DBExport - Check if is DB connected failed: java.lang.NullPointerException
 ```
 
-**Description and resolution:**
+#### **Description and resolution:**
 
 During data processing the was a connection interruption with the DB. Check network connectivity.
 
-**Error:**
+#### **Error:**
 
 ```bash
 [Net Parser] ERROR sk.tuke.cnl.bm.JXColl.RecordDispatcher - Element with ID: 74 is not supported, skipped! Update XML file!
 ```
 
-**Description and resolution:**
+#### **Description and resolution:**
 
 During data processing, an information element was found that is not supported. JXColl will skip processing this information element. If the procsseing of this information element should be supported by JXColl, check whether it is provided in the `ipfixFields.xml` file. If the element is not supported, it is necessary to implement it.
 
-**Error:**
+#### **Error:**
 
 ```bash
 [Net Parser] ERROR sk.tuke.cnl.bm.JXColl.RecordDispatcher - i.e. ’icmpTypeCodeIPv6’ (unsigned16) - received data has wrong datatype! (4 bytes)
 [Net Parser] ERROR sk.tuke.cnl.bm.JXColl.RecordDispatcher - Skipping this element DB exportation!
 ```
 
-**Description and resolution:**
+#### **Description and resolution:**
 
 During data processing the size of the information element is not corresponding with the size provided in the `ipfixFields.xml` file. JXColl will skip the processing of this element. The error is most probably in the exporter.
 
 
-**Error:**
+#### **Error:**
 
 ```bash
 [Net Parser] ERROR sk.tuke.cnl.bm.JXColl.RecordDispatcher - ”i.e. ’mplsLabelStackSection5’ - Cannot decode datatype: octetArray
 [Net Parser] ERROR sk.tuke.cnl.bm.JXColl.RecordDispatcher - Skipping this element DB exportation!
 ```
 
-**Description and resolution:**
+#### **Description and resolution:**
 
 During data processing, the data type of the information element cannot be decoded by JXColl. JXColl will skip processing this element. The implementation of decoding this data type must be performed in the JXColl.
 
 
-### Error messages related to the Java Virtual Machine 
+## Error messages related to the Java Virtual Machine 
 -----------------------------
 
 The program is interpreted in the Java Virtual Machine (JVM). Errors, that can raise and are not catched correctly by the program are errors, that were not expected and are easily identified in logger style usually containing `Java Error` and `Java Exception` strings. Usually, part of the buffer is also shown on the output. In general, these are three lines in the hierarchy of the called method that failed. Such errors usually raise due to program function crash and JXColl must be restarted. This type of error can be fixed only in the source code and is considered as programming error.
