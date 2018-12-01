@@ -20,107 +20,107 @@ Je znázornená na tomto [obrázku](https://git.cnl.sk/matus.husovsky/doc/raw/ma
 Jednotlivé zobrazené komponenty, resp. triedy sú opísané v [systémovej príručke](https://git.cnl.sk/monica/slameter_collector/wikis/JXCollSystemovaPrirucka401). 
 
 
-*  **Verzia**: 4.0.1 
-*  **Stav verzie**: vyvíjaná
-*   [Dokumentácia k vytváraniu deb balíkov pre kolektor](create_debian)
-*   **Autori**:
+*  **Version:** 4.0.1 
+*  **Version state:** stable, **the development was concluded in 2015**
+*   **Developers:**
       * Pavol Beňko
       * Matúš Husovský
-      * Marek Marcin - bývalý riešiteľ
-      * Samuel Tremko - bývalý riešiteľ
-      * Adrián Pekár - bývalý riešiteľ
-      * Tomáš Vereščák - bývalý riešiteľ
-      * Tomáš Baksay - bývalý riešiteľ
-      * Jakub Vargosko - bývalý riešiteľ
-      * Michal Kaščák - bývalý riešiteľ
-      * Ľuboš Koščo - bývalý riešiteľ
+      * Marek Marcin
+      * Samuel Tremko
+      * Adrián Pekár
+      * Tomáš Vereščák
+      * Tomáš Baksay
+      * Jakub Vargosko
+      * Michal Kaščák
+      * Ľuboš Koščo
         
-*   **Licencia**: GNU GPLv3
-*   **Implemetačné prostredie**: openjdk-7-jre-headless 
-*   [Systémová príručka WIKI](JXCollSystemovaPrirucka401)
-*   [Používateľská príručka WIKI](JXCollPouzivatelskaPriruckav401)
-*   [Používateťská príručka PDF](https://git.cnl.sk/monica/slameter_collector/raw/master/doc/JXColl_v4.0.1_PP.pdf)
-*   [Systémová príručka PDF](https://git.cnl.sk/monica/slameter_collector/raw/master/doc/JXColl_v4.0.1_SP.pdf)
+*   **License**: GNU GPLv3
+*   **Implementation environment**: openjdk-7-jre-headless 
 
-## Technické požiadavky pre inštaláciu distribučnej verzie
-----------------
-* **Operačný systém**: Ubuntu 14.04.2 LTS (je možné použiť aj inú distribúciu linuxu, ale návod bol testovaný pre uvedenú verziu)
-* **Hardvér**:
-      * **procesor**: 1GHz
-      * **pamäť**: 512MB (min. 256MB)
-      * **diskový priestor**: 1 GB
-      * **ostatné**: Sieťová karta
+## Documentation
+*   [User Documentation MD](JXCOLL_USER_DOC.md)
+*   [Technical Documentation MD](JXCOLL_SYSTEM_DOC.md)
 
-## Programové požiadavky pre inštaláciu distribučnej verzie
-----------------
-* **Softvérové závislosti**:
-      * databáza MongoDB
-      * Java Runtime Environment (JRE) verzie 1.7.0
-      * balík lksctp-tools
+**The PDF version of the documentation is available only in Slovak language:**
+ * [User Documentation PDF](https://github.com/cnl-monica/jxcoll/tree/master/doc/JXColl_v4.0.1_PP.pdf)
+ * [Technical Documenation PDF](https://github.com/cnl-monica/jxcoll/tree/master/doc/JXColl_v4.0.1_SP.pdf)
 
-* **Závislosti v rámci architektúry nástroja SLAmeter**
-      * Exportér: [MyBeem](https://git.cnl.sk/monica/slameter_exporter/wikis/home) - Program umožňuje ukladanie prijatých dát do databázy alebo ich sprístupnenie priamym pripojením, ktoré budú následne vyhodnotené príslušnými prídavnými modulmi. Je implementáciou zhromažďovacieho procesu nástroja SLAmeter. Z toho vyplýva jeho závislosť na meracom a exportovacom procese - MyBeem, alebo iné implementácie.
+## Other useful documents
+------------------------------------------------
+ *   [Tutorial on creating a DEB installation package for JXColl](DEB_TUTORIAL.md)
+ *   [Documentation for older versions of the tool are located here (available only in Slovak language)](https://github.com/cnl-monica/jxcoll/tree/master/doc/)
 
+## System Requirements
+-----------------------
+* **Operating System:** GNU/Linux *i386* or *amd64* architecture
 
-## Inštalácia distribučnej verzie v systéme Ubuntu 14.04.2 LTS
+*  **Hardware**:
+      *   processor: 1GHz+ (depends on the traffic load to measure)
+      *   memory: 512MB+ (depends on the configure cache size)
+      *   size on disk: min 1 GB (depends on the volume of data to be stored in the DB as well the DB location)
+      *   other: network interface card (NIC)
+
+*  **Software**:
+      *   MongoDB
+      *   Java Runtime Environment (JRE) v1.7.03
+      *   lksctp-tools
+
+* **Dependencies within SLAmeter**
+      * Exporter: [MyBeem](https://github.com/cnl-monica/mybeem) - JXColl depends on MyBeem, however, it should also be able to process IPFIX messages from other flow exporters (both hardware and software implementations).
+
+## Installation on Ubuntu 14.04.2 LTS distribution
 ---------------------------
 
-### 1. Inštalácia MongoDB 
-Najskôr treba naimportovať verejný GPG kľúč.
+### 1. Install MongoDB 
+First, it is necessary to import the public GPG key
 ```bash
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
 ```
-Ďalej pokračujeme
+Then, we add the repository
 ```bash
 echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
 ```
-Nasleduje update lokálnej databázy balíkov.
+Subsequently we update the databaze of packages
 ```bash
 sudo apt-get update
 ```
-Potom inštalácia MongoDB databázy.
+Then, we install MongoDB
 ```bash
 sudo apt-get install -y mongodb-org
 ```
 
-### 2. Inštalácia ďalších závislosti 
-Inštaláciu Java JRE 7 a lksctp-tools vykonáme príkazom:
+### 2. Installation of other dependencies 
+The installation of Java JRE 7 and lksctp-tools can be performed executing:
 ```bash
 sudo apt-get install openjdk-7-jre-headless lksctp-tools
 ```
 
-### 3. Inštalácia samotného JXColl
+### 3. Installation of JXColl
 
-Postup je nasledovný:
-
-I. Stiahnuť DEB balík zo systému GIT
+#### I. Download the DEB package
 ```bash
 sudo wget https://git.cnl.sk/monica/slameter_collector/raw/master/deb/jxcoll_4.0.1_i386.deb --no-check-certificate 
 ```
 
-II. Spustiť stiahnutý DEB balík pomocou príkazu 
+#### II. Run the DEB package using the following command: 
 ```bash
 sudo dpkg -i jxcoll_4.0.1_i386.deb 
 ```
 
-III. Nastaviť konfiguračný súbor `/etc/jxcoll/jxcoll_config.xml`. Najmä databázové pripojenie a protokol na počúvanie pre IPFIX správy. 
+#### III. Set the configuration file `/etc/jxcoll/jxcoll_config.xml`. Make sure you configure the protocol for incoming messages (Netflow/IPFIX) and the database to be used.
 
-Opis parametrov konfiguračného súboru je dostupný v [používateľskej príručke](JXCollPouzivatelskaPriruckav401).
+The description of the configuration file parameters are provided in the [User Documentation](JXCOLL_USER_DOC.md).
 
-## Spustenie distribučnej verzie
-Realizujeme príkazom:
+## Runing the program
+The program can be run using the following command:
 ```bash
 sudo /etc/init.d/jxcolld start
 ```
-alebo priamo príkazom
+or using the command:
 ```bash 
 jxcoll 
 ```
-Viac informácii o možnostiach spustenia tohto programu s rozličnými parametrami je dostupných v  [používateľskej príručke](JXCollPouzivatelskaPriruckav401).
+More information on the options to run the program inculding the parameters is provided in the [User Documentation](JXCOLL_USER_DOC.md).
 
-## Vlastný preklad/spustenie vývojovej verzie
-Pre podrobné informácie o preklade kliknite [sem](prekladJXColl4)
-
-## Iné
-
-Ďalšie informácie o predošlých verziách tohto programu je možné nájsť [tu](http://wiki.cnl.sk/Monica/KolektorJXColl), alebo v príručkách ktoré sú dostupné [tu](https://git.cnl.sk/monica/slameter_collector/tree/master/doc).
+## Compilation of the source code
+Instruction on how to compile the source code are provided [here](JXCOLL_COMPILE.md)
