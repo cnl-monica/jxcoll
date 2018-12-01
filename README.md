@@ -1,24 +1,15 @@
 # JXColl
 --------
 
-Program JXColl (Java XML Collector) slúži na zachytávanie a spracovávanie informácii
-o tokoch v sieťach získané exportérom. Tvorí zhromažďovací proces meracej architektúry nástroja SLAmeter, ktorý
-na základe nastavených parametrov konfiguračného súboru vie dáta získané z aktuálnej sieťovej prevádzky
-ukladať do databázy alebo ich sprístupniť pomocou vlastného protokolu pre priame spracovanie (protokol ACP) používateľovi. 
-Údaje uložené v databáze (MongoDB) sú určené pre neskoršie vyhodnotenie prídavnými modulmi spomínanej 
-meracej architektúry a sú v súlade s požiadavkami protokolu IPFIX. JXColl tiež generuje účtovacie záznamy, 
-ktoré slúžia na analýzu sieťovej hierarchie konkrétnym používateľom z hľadiska protokolov, 
-portov, IP adries a časových charakteristík. 
+JXColl (Java XML Collector of IPFIX messages) represents the middle component of the SLAmeter network traffic measurement/monitoring tool. It represents the collector of an IPFIX-based network flow measurement platform. The collector serves one or more collecting processes. This process receives records about IP flows from one or more exporters. The architecture of JXColl is as follows:
 
-Podľa IPFIX špecifikácie tiež nazývaný Collector. Zhromažďovač je hostiteľom jedného alebo viacerých zhromažďovacích procesov. Zhromažďovací proces prijíma záznamy o IP tokoch z jedného alebo viacerých exportovacích procesov. Zhromažďovací proces môže vykonať ľubovoľné spracovanie záznamov o IP tokoch a taktiež ukladá spracované alebo nespracované záznamy o IP tokoch do zvoleného úložiska. 
+<p align="center">
+  <img src="/fig/collector.png" width="410" title="Architecture of the collector">
+</p>
 
-Jediný vyvíjaný druh skupinou MONICA -> **[JXColl](jxcoll)*
+JXColl, based on the configured mode, can either store the obtained IPFIX flow records in a database or can send it directly (using the ACP protocol) for direct processing and visualisation. The data stored in the database (MongoDB) is destined for analysis of historical data. This is performed in full conformity with the [IPFIX specification](https://tools.ietf.org/html/rfc7011).
 
-## Architektúra JXColl
-----------------
-Je znázornená na tomto [obrázku](https://git.cnl.sk/matus.husovsky/doc/raw/master/architektura_mongo.pdf). 
-Jednotlivé zobrazené komponenty, resp. triedy sú opísané v [systémovej príručke](https://git.cnl.sk/monica/slameter_collector/wikis/JXCollSystemovaPrirucka401). 
-
+JXColl is also capable of generating accounting-related information. These information can be used for billing based on the used protocol types, IP addresses and time-base characteristics.
 
 *  **Version:** 4.0.1 
 *  **Version state:** stable, **the development was concluded in 2015**
@@ -48,7 +39,7 @@ Jednotlivé zobrazené komponenty, resp. triedy sú opísané v [systémovej pr�
 ## Other useful documents
 ------------------------------------------------
  *   [Tutorial on creating a DEB installation package for JXColl](DEB_TUTORIAL.md)
- *   [Documentation for older versions of the tool are located here (available only in Slovak language)](https://github.com/cnl-monica/jxcoll/tree/master/doc/)
+ *   [Documentation for older versions of the tool are located here](https://github.com/cnl-monica/jxcoll/tree/master/doc/) **(available only in Slovak language)**
 
 ## System Requirements
 -----------------------
@@ -66,52 +57,58 @@ Jednotlivé zobrazené komponenty, resp. triedy sú opísané v [systémovej pr�
       *   lksctp-tools
 
 * **Dependencies within SLAmeter**
-      * Exporter: [MyBeem](https://github.com/cnl-monica/mybeem) - JXColl depends on MyBeem, however, it should also be able to process IPFIX messages from other flow exporters (both hardware and software implementations).
+      *   **Exporter:** JXColl depends on [MyBeem](https://github.com/cnl-monica/mybeem), however, it should also be able to process IPFIX messages from other flow exporters (both hardware and software implementations).
 
-## Installation on Ubuntu 14.04.2 LTS distribution
+## Installation on Ubuntu 14.04.2 LTS
 ---------------------------
 
-### 1. Install MongoDB 
-First, it is necessary to import the public GPG key
+### Install MongoDB 
+
+##### 1. First, it is necessary to import the public GPG key
 ```bash
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
 ```
-Then, we add the repository
+##### 2. Then, we add the repository
 ```bash
 echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
 ```
-Subsequently we update the databaze of packages
+##### 3. Subsequently we update the databaze of packages
 ```bash
 sudo apt-get update
 ```
-Then, we install MongoDB
+##### 4. Then, we install MongoDB
 ```bash
 sudo apt-get install -y mongodb-org
 ```
 
-### 2. Installation of other dependencies 
+### Installation of other dependencies 
+
 The installation of Java JRE 7 and lksctp-tools can be performed executing:
 ```bash
 sudo apt-get install openjdk-7-jre-headless lksctp-tools
 ```
 
-### 3. Installation of JXColl
+### Installation of JXColl using the .deb installation package
 
-#### I. Download the DEB package
+##### 1. Download the DEB package
 ```bash
 sudo wget https://git.cnl.sk/monica/slameter_collector/raw/master/deb/jxcoll_4.0.1_i386.deb --no-check-certificate 
 ```
 
-#### II. Run the DEB package using the following command: 
+##### 2. Run the DEB package using the following command: 
 ```bash
 sudo dpkg -i jxcoll_4.0.1_i386.deb 
 ```
+### Installation by compiling the source code
 
-#### III. Set the configuration file `/etc/jxcoll/jxcoll_config.xml`. Make sure you configure the protocol for incoming messages (Netflow/IPFIX) and the database to be used.
+Instruction on how to compile the source code are provided [here](JXCOLL_COMPILE.md)
+
+### Runing the program
+
+##### First, set the configuration file `/etc/jxcoll/jxcoll_config.xml`. Make sure you configure the protocol for incoming messages (Netflow/IPFIX) and the database to be used.
 
 The description of the configuration file parameters are provided in the [User Documentation](JXCOLL_USER_DOC.md).
 
-## Runing the program
 The program can be run using the following command:
 ```bash
 sudo /etc/init.d/jxcolld start
@@ -122,5 +119,3 @@ jxcoll
 ```
 More information on the options to run the program inculding the parameters is provided in the [User Documentation](JXCOLL_USER_DOC.md).
 
-## Compilation of the source code
-Instruction on how to compile the source code are provided [here](JXCOLL_COMPILE.md)
